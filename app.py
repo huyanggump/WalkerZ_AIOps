@@ -29,7 +29,7 @@ for chat in st.session_state["chat_history"]:
         # 用户消息：带人类头像在右侧
         st.markdown(
             f"""
-            <div style="display: flex; align-items: center; justify-content: flex-end;">
+            <div style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 10px;">
                 <div style="background-color: #e0f7fa; padding: 10px; border-radius: 5px; max-width: 60%; text-align: right;">
                     {chat['text']}
                 </div>
@@ -42,7 +42,7 @@ for chat in st.session_state["chat_history"]:
         # 系统回复：带机器人头像在左侧
         st.markdown(
             f"""
-            <div style="display: flex; align-items: center; justify-content: flex-start;">
+            <div style="display: flex; align-items: center; justify-content: flex-start; margin-bottom: 10px;">
                 <img src="https://img.icons8.com/color/48/000000/robot.png" width="30" style="margin-right: 10px;"/>
                 <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; max-width: 60%;">
                     {chat['text']}
@@ -58,5 +58,9 @@ if user_input:
     # 添加用户输入
     st.session_state["chat_history"].append({"sender": "user", "text": user_input})
     # 添加系统回复
-    response = user_input[::-1]  # 反转用户输入作为回复示例
+    response = user_input[::-1]  # 简单反转用户输入作为回复
     st.session_state["chat_history"].append({"sender": "bot", "text": response})
+
+    # 强制刷新页面，显示新消息
+    # st.experimental_rerun()
+    st.rerun()
