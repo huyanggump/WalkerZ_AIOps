@@ -12,3 +12,7 @@ hide_menu_style = """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.title("Hello World!")
+
+st.chat_input("Please input your message here...")
+
+st.dialog("Hello, I am a dialog box!")
