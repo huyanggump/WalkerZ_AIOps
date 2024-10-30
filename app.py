@@ -37,4 +37,3 @@ if user_input:
     # 添加系统回复
     response = user_input[::-1]  # 简单反转用户输入作为回复
     st.session_state["chat_history"].append({"sender": "bot", "text": response})
-    user_input.clear()  # 清空输入框内容
