@@ -3,18 +3,6 @@
 # @Time: 2024/10/30
 
 import streamlit as st
-# hide side menu
-# hide_menu_style = """
-#         <style>
-#         #MainMenu {visibility: hidden;}
-#         </style>
-#         """
-# st.markdown(hide_menu_style, unsafe_allow_html=True)
-#
-# st.title("Hello World!")
-#
-# st.chat_input("Please input your message here...")
-#
 
 # 初始化对话历史记录
 if "chat_history" not in st.session_state:
