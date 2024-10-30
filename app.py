@@ -30,11 +30,11 @@ for chat in st.session_state["chat_history"]:
         st.markdown(f"<div style='background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 5px;'>{chat['text']}</div>", unsafe_allow_html=True)
 
 # 底部输入框和发送按钮
-user_input = st.text_input("请输入您的消息：", "")
-if st.button("发送"):
-    if user_input:
-        # 添加用户输入
-        st.session_state["chat_history"].append({"sender": "user", "text": user_input})
-        # 添加系统回复
-        response = user_input[::-1]  # 简单反转用户输入作为回复
-        st.session_state["chat_history"].append({"sender": "bot", "text": response})
+user_input = st.chat_input("请输入您的消息：")
+if user_input:
+    # 添加用户输入
+    st.session_state["chat_history"].append({"sender": "user", "text": user_input})
+    # 添加系统回复
+    response = user_input[::-1]  # 简单反转用户输入作为回复
+    st.session_state["chat_history"].append({"sender": "bot", "text": response})
+    user_input.clear()  # 清空输入框内容
