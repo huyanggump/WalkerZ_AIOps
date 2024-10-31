@@ -3,6 +3,7 @@
 # @Time: 2024/10/30
 
 import streamlit as st
+from ops_agent import bot_run
 
 # 初始化对话历史记录
 if "chat_history" not in st.session_state:
@@ -46,7 +47,8 @@ if user_input:
     # 添加用户输入
     st.session_state["chat_history"].append({"sender": "user", "text": user_input})
     # 添加系统回复
-    response = user_input[::-1]  # 简单反转用户输入作为回复
+    # response = user_input[::-1]  # 简单反转用户输入作为回复
+    response = bot_run(user_input)
     st.session_state["chat_history"].append({"sender": "bot", "text": response})
 
     # 强制刷新页面，显示新消息
