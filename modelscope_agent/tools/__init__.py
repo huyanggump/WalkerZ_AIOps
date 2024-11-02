@@ -5,6 +5,7 @@ from .contrib import *  # noqa F403
 
 _import_structure = {
     'amap_weather': ['AMAPWeather'],
+    'query_ecs_info': ['QueryECSInfo'],
     'code_interpreter': ['CodeInterpreter'],
     'contrib': ['AliyunRenewInstanceTool'],
     'dashscope_tools': [

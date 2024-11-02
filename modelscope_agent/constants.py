@@ -22,3 +22,5 @@ class ApiNames(Enum):
     amap_api_key = 'AMAP_TOKEN'
     bing_api_key = 'BING_SEARCH_V7_SUBSCRIPTION_KEY'
     zhipu_api_key = 'ZHIPU_API_KEY'
+    ecs_access_key = 'ALIBABA_CLOUD_ACCESS_KEY_ID'
+    ecs_secret_key = 'ALIBABA_CLOUD_ACCESS_KEY_SECRET'

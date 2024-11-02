@@ -25,6 +25,8 @@ WORK_DIR = os.getenv('CODE_INTERPRETER_WORK_DIR', DEFAULT_CODE_INTERPRETER_DIR)
 register_map = {
     'amap_weather':
     'AMAPWeather',
+    'query_ecs_info':
+    'QueryECSInfo',
     'storage':
     'Storage',
     'web_search':
