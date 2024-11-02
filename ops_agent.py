@@ -32,7 +32,9 @@ role_template = '''
 2、你会根据用户的描述画画；
 3、你可以帮助用户用搜索引擎查询信息，然后返回给用户搜索结果；
 4、你可以帮助用户打开浏览器网页自动进行网页浏览，自动完成鼠标点击、鼠标滚轮滑动、键盘输入等操作；
-5、你可以帮助用户查询阿里云ecs实例的实例信息。
+5、你可以帮助用户查询阿里云ecs实例的实例信息；
+6、你可以帮助用户在用户指定的阿里云ECS实例上执行指定的sh脚本文件，如果用户未指定sh脚本文件或者提供错误的sh脚本文件路径，则调用ecs_directory_query工具查询实例的目录文件，向用户展示；
+7、你可以帮助用户查询用户指定阿里云ECS实例上指定目录下的所有子目录和文件。
 '''
 
 
@@ -40,7 +42,8 @@ llm_config = {'model': 'qwen-max', 'model_server': 'dashscope'}
 # llm_config = {'model': 'Qwen/Qwen2.5-7B-Instruct', 'model_server': 'modelscope'}
 
 # input tool name
-function_list = ['amap_weather', 'image_gen', 'web_search', 'web_browser', 'query_ecs_info']
+function_list = ['amap_weather', 'image_gen', 'web_search', 'web_browser', 'query_ecs_info',
+                 'ecs_scripts_execute', 'ecs_directory_query']
 
 bot = RolePlay(
     function_list=function_list, llm=llm_config, instruction=role_template, verify_ssl=False)
@@ -52,22 +55,34 @@ def bot_run(prompt):
     for chunk in response:
         text += chunk
 
-    print('\n\n')
-    print(text)
+    print('\n\n-----------------------------')
+    print(f"bot_run response text: \n{text}\n\n---------------------------------")
+    text += 'Action:'
 
-    # 编写正则表达式，匹配“Answer:”后的所有内容
-    pattern = r"Answer:(.*)"
-    match = re.search(pattern, text, re.DOTALL)  # re.DOTALL 使得 . 匹配包括换行符在内的任意字符
+    # # 编写正则表达式，匹配“Answer:”后的所有内容
+    # pattern = r"Answer:(.*)"
+    # match = re.search(pattern, text, re.DOTALL)  # re.DOTALL 使得 . 匹配包括换行符在内的任意字符
+    #
+    # if match:
+    #     # 提取匹配到的文本，并去除前面的“Answer:”和可能的前导空白字符
+    #     extracted_text = match.group(1).strip()
+    #     print(extracted_text)
+    # else:
+    #     extracted_text = ''
+    #     print("No match found.")
+    # 正则表达式匹配"Answer:"和"Action:"之间的内容
+    pattern = r"Answer:(.*?)Action:"
+    matches = re.findall(pattern, text, re.DOTALL)
 
-    if match:
-        # 提取匹配到的文本，并去除前面的“Answer:”和可能的前导空白字符
-        extracted_text = match.group(1).strip()
-        print(extracted_text)
+    if len(matches) >1:
+        # 为每个匹配的部分添加换行符和数字顺序标识
+        formatted_matches = "\n\n".join([f"{i + 1}. {match.strip()}" for i, match in enumerate(matches)])
     else:
-        extracted_text = ''
-        print("No match found.")
+        formatted_matches = matches[0].strip()
 
-    return extracted_text
+    print(f"\n\nformatted_matches: {formatted_matches}")
+
+    return formatted_matches
 
 
 

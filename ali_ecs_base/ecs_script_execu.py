@@ -8,18 +8,18 @@ import paramiko
 user_name = "root"
 password = "985211WalkerZ*"
 port = 22
-host_name = "8.154.41.113"
-script_path = "/sh_scripts/transformer_api.sh"
+# host_name = "8.154.41.113"
+# script_path = "/sh_scripts/transformer_api.sh"
 
 
-def execute_remote_script(hostname, port, username, password, script_path):
+def execute_remote_script(hostname, script_path):
     # 创建SSH客户端
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
         # 连接到远程ECS实例
-        client.connect(hostname, port=port, username=username, password=password)
+        client.connect(hostname, port=port, username=user_name, password=password)
 
         # 执行sh脚本
         stdin, stdout, stderr = client.exec_command(f"bash {script_path}")
@@ -28,6 +28,7 @@ def execute_remote_script(hostname, port, username, password, script_path):
 
         print("Output:", output)
         print("Errors:", errors)
+        return output, errors
     finally:
         client.close()
 

@@ -27,6 +27,10 @@ register_map = {
     'AMAPWeather',
     'query_ecs_info':
     'QueryECSInfo',
+    'ecs_scripts_execute':
+    'EcsScriptsExecute',
+    'ecs_directory_query':
+    'EcsDirectoryQuery',
     'storage':
     'Storage',
     'web_search':
