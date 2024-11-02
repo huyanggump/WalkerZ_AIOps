@@ -5,6 +5,7 @@
 # 配置环境变量；如果您已经提前将api-key提前配置到您的运行环境中，可以省略这个步骤
 import os
 import ssl
+import re
 os.environ['DASHSCOPE_API_KEY']='sk-2be205b8435d4528812c68ec78e0d9b2'
 # os.environ['MODELSCOPE_API_TOKEN']='e8d2a5d5-1cbe-4b32-85c5-df6a8722ebd0'
 os.environ['AMAP_TOKEN']='2acea0d65909370fb77d3fc4370d707c'
@@ -25,14 +26,14 @@ from modelscope_agent.agents.role_play import RolePlay  # NOQA
 
 # role_template = '你是一个善于帮助用户处理各种生活事项的生活小助手，你需要查询相应地点的天气，还会根据用户的描述画画，还可以帮助用户用搜索引擎查询信息。'
 
-role_template = """
+role_template = '''
 你是一个拥有很多技能和专业能力的强大生活、工作助手，可以帮助用户完成如下的生活和工作需求：
 1、你可以查询相应地点的天气；
 2、你会根据用户的描述画画；
 3、你可以帮助用户用搜索引擎查询信息，然后返回给用户搜索结果；
 4、你可以帮助用户打开浏览器网页自动进行网页浏览，自动完成鼠标点击、鼠标滚轮滑动、键盘输入等操作；
 5、你可以帮助用户查询阿里云ecs实例的实例信息。
-"""
+'''
 
 
 llm_config = {'model': 'qwen-max', 'model_server': 'dashscope'}
@@ -53,7 +54,20 @@ def bot_run(prompt):
 
     print('\n\n')
     print(text)
-    return text
+
+    # 编写正则表达式，匹配“Answer:”后的所有内容
+    pattern = r"Answer:(.*)"
+    match = re.search(pattern, text, re.DOTALL)  # re.DOTALL 使得 . 匹配包括换行符在内的任意字符
+
+    if match:
+        # 提取匹配到的文本，并去除前面的“Answer:”和可能的前导空白字符
+        extracted_text = match.group(1).strip()
+        print(extracted_text)
+    else:
+        extracted_text = ''
+        print("No match found.")
+
+    return extracted_text
 
 
 

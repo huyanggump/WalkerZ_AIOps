@@ -55,6 +55,5 @@ class ECSInstanceInfo:
 
 
 # if __name__ == '__main__':
-#     ecs_info_obj = ECSInstanceInfo()
+#     ecs_info_obj = ECSInstanceInfo(eip_addresses=['8.154.41.113'])
 #     ecs_info_obj.get_instance_info()
-#

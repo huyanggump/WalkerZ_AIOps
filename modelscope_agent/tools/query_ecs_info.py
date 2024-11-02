@@ -19,8 +19,8 @@ class QueryECSInfo(BaseTool):
     name = 'query_ecs_info'
     parameters: list = [{
         'name': 'eip_addresses',
-        'type': 'string',
-        'description': '用户所指定要查询实例的EIP，如果用户未指定，则赋值为空字符串',  # 城市/区具体名称，如`北京市海淀区`请描述为`海淀区`
+        'type': 'list',
+        'description': '用户所指定要查询实例的EIP，用户可以一次输入多个EIP，你需要自动使用","分隔，如果用户未指定，则赋值为None',  # 城市/区具体名称，如`北京市海淀区`请描述为`海淀区`
         'required': True
     }]
 

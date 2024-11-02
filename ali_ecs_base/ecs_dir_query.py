@@ -36,4 +36,4 @@ def list_remote_directory(hostname, port, username, password, directory_path):
 
 
 # 调用函数
-list_remote_directory(host_name, port, user_name, password, script_path)
+# list_remote_directory(host_name, port, user_name, password, script_path)
