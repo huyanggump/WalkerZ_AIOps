@@ -27,6 +27,12 @@ register_map = {
     'AMAPWeather',
     'query_ecs_info':
     'QueryECSInfo',
+    'reboot_ecs_tool':
+    'RebootECSTool',
+    'start_ecs_tool':
+    'StartECSTool',
+    'stop_ecs_tool':
+    'StopECSTool',
     'ecs_scripts_execute':
     'EcsScriptsExecute',
     'ecs_directory_query':

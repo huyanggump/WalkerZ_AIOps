@@ -8,6 +8,9 @@ _import_structure = {
     'query_ecs_info': ['QueryECSInfo'],
     'ecs_scripts_execute':['EcsScriptsExecute'],
     'ecs_directory_query': ['EcsDirectoryQuery'],
+    'reboot_ecs_tool': ['RebootECSTool'],
+    'start_ecs_tool': ['StartECSTool'],
+    'stop_ecs_tool': ['StopECSTool'],
     'code_interpreter': ['CodeInterpreter'],
     'contrib': ['AliyunRenewInstanceTool'],
     'dashscope_tools': [

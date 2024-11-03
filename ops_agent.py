@@ -32,9 +32,14 @@ role_template = '''
 2、你会根据用户的描述画画；
 3、你可以帮助用户用搜索引擎查询信息，然后返回给用户搜索结果；
 4、你可以帮助用户打开浏览器网页自动进行网页浏览，自动完成鼠标点击、鼠标滚轮滑动、键盘输入等操作；
-5、你可以帮助用户查询阿里云ecs实例的实例信息；
+5、你可以帮助用户查询阿里云ecs实例的实例信息，如何用户未给出具体的IP地址，那么你需要查询所有的实例信息；
 6、你可以帮助用户在用户指定的阿里云ECS实例上执行指定的sh脚本文件，如果用户未指定sh脚本文件或者提供错误的sh脚本文件路径，则调用ecs_directory_query工具查询实例的目录文件，向用户展示；
-7、你可以帮助用户查询用户指定阿里云ECS实例上指定目录下的所有子目录和文件。
+7、你可以帮助用户查询用户指定阿里云ECS实例上指定目录下的所有子目录和文件；
+8、你可以帮助用户重启阿里云ECS实例。如果用户未给出具体的IP地址，也未给出具体的实例ID，那么你需要查询所有的实例信息，然后让用户输入想要重启的实例的实例ID，然后再进一步判断：如果实例状态为运行中（Running），才能调用此工具重启实例，否则告诉用户实例状态不是运行中，无法重启；
+9、你可以帮助用户启动阿里云ECS实例。如果用户未给出具体的IP地址，也未给出具体的实例ID，那么你需要查询所有的实例信息，然后让用户输入想要启动的实例的实例ID，然后再进一步判断：如果实例状态为已停止（Stopped），才能调用此工具启动实例，否则告诉用户实例状态不是已停止，无法启动；
+10、你可以帮助用户停止阿里云ECS实例。如果用户未给出具体的IP地址，也未给出具体的实例ID，那么你需要查询所有的实例信息，然后让用户输入想要停止的实例的实例ID，然后执行停止实例操作。
+
+要求：你可以记住和用户的前几轮对话内容，并且可以从对话的上下文中获取与用户当前最新请求相关的信息，然后自己对信息进行整合，然后分析处理，最后响应给用户。
 '''
 
 
@@ -43,7 +48,8 @@ llm_config = {'model': 'qwen-max', 'model_server': 'dashscope'}
 
 # input tool name
 function_list = ['amap_weather', 'image_gen', 'web_search', 'web_browser', 'query_ecs_info',
-                 'ecs_scripts_execute', 'ecs_directory_query']
+                 'ecs_scripts_execute', 'ecs_directory_query', 'reboot_ecs_tool', 'start_ecs_tool',
+                 'stop_ecs_tool']
 
 bot = RolePlay(
     function_list=function_list, llm=llm_config, instruction=role_template, verify_ssl=False)
@@ -57,7 +63,7 @@ def bot_run(prompt):
 
     print('\n\n-----------------------------')
     print(f"bot_run response text: \n{text}\n\n---------------------------------")
-    text += 'Action:'
+    text_action = text + 'Action:'
 
     # # 编写正则表达式，匹配“Answer:”后的所有内容
     # pattern = r"Answer:(.*)"
@@ -72,11 +78,13 @@ def bot_run(prompt):
     #     print("No match found.")
     # 正则表达式匹配"Answer:"和"Action:"之间的内容
     pattern = r"Answer:(.*?)Action:"
-    matches = re.findall(pattern, text, re.DOTALL)
+    matches = re.findall(pattern, text_action, re.DOTALL)
 
     if len(matches) >1:
         # 为每个匹配的部分添加换行符和数字顺序标识
         formatted_matches = "\n\n".join([f"{i + 1}. {match.strip()}" for i, match in enumerate(matches)])
+    elif len(matches) == 0:
+        formatted_matches = text
     else:
         formatted_matches = matches[0].strip()
 
