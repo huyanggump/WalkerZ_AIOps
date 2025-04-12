@@ -54,7 +54,7 @@ class RebootECS:
             raise Exception(e)
 
 
-# reboot = RebootECS(instance_id='i-bp1e1f8yhdqa7fhbvbs2')
+# reboot = RebootECS(instance_id='')
 # reboot.reboot_ecs_instance()
 #
 

@@ -6,9 +6,9 @@ import paramiko
 
 
 user_name = "root"
-password = "985211WalkerZ*"
+password = ""
 port = 22
-host_name = "8.154.41.113"
+host_name = ""
 # script_path = "/sh_scripts"
 
 

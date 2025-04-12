@@ -65,17 +65,6 @@ def bot_run(prompt):
     text_action = text + 'Action:'
 
     # # 编写正则表达式，匹配“Answer:”后的所有内容
-    # pattern = r"Answer:(.*)"
-    # match = re.search(pattern, text, re.DOTALL)  # re.DOTALL 使得 . 匹配包括换行符在内的任意字符
-    #
-    # if match:
-    #     # 提取匹配到的文本，并去除前面的“Answer:”和可能的前导空白字符
-    #     extracted_text = match.group(1).strip()
-    #     print(extracted_text)
-    # else:
-    #     extracted_text = ''
-    #     print("No match found.")
-    # 正则表达式匹配"Answer:"和"Action:"之间的内容
     pattern = r"Answer:(.*?)Action:"
     matches = re.findall(pattern, text_action, re.DOTALL)
 
