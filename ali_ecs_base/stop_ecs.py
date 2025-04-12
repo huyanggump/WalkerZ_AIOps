@@ -54,7 +54,7 @@ class StopECS:
             raise Exception(e)
 
 
-# reboot = StopECS(instance_id='i-bp1e1f8yhdqa7fhbvbs2')
+# reboot = StopECS(instance_id='')
 # reboot.stop_ecs_instance()
 #
 
