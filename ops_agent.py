@@ -6,13 +6,12 @@
 import os
 import ssl
 import re
-os.environ['DASHSCOPE_API_KEY']='sk-2be205b8435d4528812c68ec78e0d9b2'
-# os.environ['MODELSCOPE_API_TOKEN']='e8d2a5d5-1cbe-4b32-85c5-df6a8722ebd0'
-os.environ['AMAP_TOKEN']='2acea0d65909370fb77d3fc4370d707c'
-os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']='04789e3f50b94453a013994abd499b9d'
+os.environ['DASHSCOPE_API_KEY']=''
+os.environ['AMAP_TOKEN']=''
+os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']=''
 
-os.environ['ALIBABA_CLOUD_ACCESS_KEY_ID'] = 'LTAI5tE9zxV6cmUg4aWwp63P'
-os.environ['ALIBABA_CLOUD_ACCESS_KEY_SECRET'] = 'KC7b5l1zvdTwUotFL5LMwX1CRPDGAM'
+os.environ['ALIBABA_CLOUD_ACCESS_KEY_ID'] = ''
+os.environ['ALIBABA_CLOUD_ACCESS_KEY_SECRET'] = ''
 
 
 ssl._create_default_https_context = ssl._create_unverified_context
